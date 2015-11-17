@@ -5,7 +5,7 @@
   <memcached><!-- memcached cache backend related config -->
     <servers><!-- any number of server nodes can be included -->
       <server>
-        <host><![CDATA[cache]]></host>
+        <host><![CDATA[memcached.cloud66.local]]></host>
         <port><![CDATA[11211]]></port>
         <persistent><![CDATA[1]]></persistent>
         </server>

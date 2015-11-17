@@ -14,6 +14,9 @@ RUN yum -y install which openssh-server php-mysql php-gd php-mcrypt php-zip php-
 
 RUN yum -y install tar mysql
 
+# Add missing PHP extension mbstring
+RUN yum -y install php-mbstring
+
 ADD default.conf /etc/nginx/conf.d/default.conf
  
 RUN chkconfig php-fpm on
@@ -22,13 +25,13 @@ RUN chkconfig nginx on
 
 #install magento files 
 
-RUN cd /tmp && wget http://www.magentocommerce.com/downloads/assets/1.9.0.1/magento-1.9.0.1.tar.gz
+RUN cd /tmp && wget http://downloads.cloud66.com/appstore/magento/magento-1.9.2.2.tar.gz
 
-RUN cd /tmp && tar -zxvf magento-1.9.0.1.tar.gz
+RUN cd /tmp && mkdir magento && tar -zxvf magento-*tar.gz -C ./magento
 
 RUN mv /tmp/magento /var/www
 
-RUN cd /var/www/ && chmod -R o+w media var && chmod o+w app/etc && rm -f magento-*tar.gz
+RUN cd /var/www/ && chmod -R o+w media var && chmod o+w app/etc && rm -f /tmp/magento-*tar.gz
 
 ADD mage-cache.xml /var/www/app/etc/mage-cache.xml
 
